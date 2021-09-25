@@ -14,3 +14,6 @@ do {
   console.log('Woooot!');
   counter -= 1;
 } while (counter > 0);
+
+// this will log once to the console because 
+// do .. while always executes once
