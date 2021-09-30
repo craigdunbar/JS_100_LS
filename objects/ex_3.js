@@ -7,6 +7,6 @@ let fido = {
   weight: 16,
 };
 fido.age = 3;
-fido["favorite food"] = 'kibble';
+fido['favorite food'] = 'kibble';
 
 console.log(fido)
