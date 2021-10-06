@@ -70,12 +70,12 @@ function prompt(message) {
 }
 
 function getSum(userNum) {
-  total = userNum.reduce((previousValue, currentValue) => previousValue + currentValue);
+  let total = userNum.reduce((previousValue, currentValue) => previousValue + currentValue);
   return total
 }
 
 function getProduct(userNum) {
-  total = userNum.reduce((previousValue, currentValue) => previousValue * currentValue);
+  let total = userNum.reduce((previousValue, currentValue) => previousValue * currentValue);
   return total
 }
 let rlSync = require('readline-sync');
