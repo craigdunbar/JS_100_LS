@@ -24,6 +24,7 @@ Calculator
 */
 const readline = require('readline-sync');
 const MESSAGES = require('./calculator_messages.json');
+const LANGUAGE = 'fr';
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -33,29 +34,29 @@ function invalidNumber(number) {
   return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
-prompt(MESSAGES['welcome']);
+prompt(MESSAGES[LANGUAGE]['welcome']);
 do {
-  prompt(MESSAGES['firstNum']);
+  prompt(MESSAGES[LANGUAGE]['firstNum']);
   let number1 = readline.question();
 
   while (invalidNumber(number1)) {
-    prompt(MESSAGES['invalidNum']);
+    prompt(MESSAGES[LANGUAGE]['invalidNum']);
     number1 = readline.question();
   }
 
-  prompt(MESSAGES['secondNum']);
+  prompt(MESSAGES[LANGUAGE]['secondNum']);
   let number2 = readline.question();
 
   while (invalidNumber(number2)) {
-    prompt(MESSAGES['invalidNum']);
+    prompt(MESSAGES[LANGUAGE]['invalidNum']);
     number2 = readline.question();
   }
 
-  prompt(MESSAGES['operation']);
+  prompt(MESSAGES[LANGUAGE]['operation']);
   let operation = readline.question();
 
   while (!['1', '2', '3', '4'].includes(operation)) {
-    prompt(MESSAGES['validChoice']);
+    prompt(MESSAGES[LANGUAGE]['validChoice']);
     operation = readline.question();
   }
 
@@ -77,7 +78,7 @@ do {
 
   prompt(`The result is ${output}`);
 
-  prompt(MESSAGES['playAgain']);
-  let repeat = readline.question();
+  prompt(MESSAGES[LANGUAGE]['playAgain']);
+  repeat = readline.question();
 } while (repeat === 'y' || (repeat[0].toLowerCase() === 'y'));
-prompt(MESSAGES['goodbye']);
+prompt(MESSAGES[LANGUAGE]['goodbye']);
