@@ -32,18 +32,18 @@ the number given
 
 */
 function findFibonacciIndexByLength(num) {
-    let array = [1, 1]
-    let count = 2
+    let array = [1n, 1n]
+    let count = 2n
     do {
-    array[count] =array[count - 2] + array[count -1];
+    array[count] =array[count - 2n] + array[count -1n];
     count ++
     } while (array[array.length - 1].toString().length < num) 
     return count;
 }
-// console.log(findFibonacciIndexByLength(2n)); //=== 7n);    // 1 1 2 3 5 8 13
-// console.log(findFibonacciIndexByLength(3n)); //=== 12n);   // 1 1 2 3 5 8 13 21 34 55 89 144
-// console.log(findFibonacciIndexByLength(10n)); // === 45n);
-// console.log(findFibonacciIndexByLength(16n)); // === 74n);
-console.log(findFibonacciIndexByLength(100n)); // === 476n);
-console.log(findFibonacciIndexByLength(1000n)); // === 4782n);
-// console.log(findFibonacciIndexByLength(10000n)); // === 47847n);
+console.log(findFibonacciIndexByLength(2n) === 7n);    // 1 1 2 3 5 8 13
+console.log(findFibonacciIndexByLength(3n) === 12n);   // 1 1 2 3 5 8 13 21 34 55 89 144
+console.log(findFibonacciIndexByLength(10n) === 45n);
+console.log(findFibonacciIndexByLength(16n) === 74n);
+console.log(findFibonacciIndexByLength(100n) === 476n);
+console.log(findFibonacciIndexByLength(1000n)  === 4782n);
+// console.log(findFibonacciIndexByLength(10000n) === 47847n);
