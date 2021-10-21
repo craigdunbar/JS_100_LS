@@ -1,0 +1,11 @@
+{
+  "welcome" : "Welcome to the Mortgage Calculator!",
+  "loanAmount" : "Enter the loan amount (must be greater than zero):",
+  "apr" : "Enter the APR (must be greater than 0 and less than 100):",
+  "loanDuration" : "Enter the loan duration in months (must be greater than 1):",
+  "anotherCalc" : "Would you like to perform another calculation? (Enter 'y' or 'n'):",
+  "invalidNumber" : "This is not a valid number",
+  "invalidPercent" : "Annual Percentage Rate must be more than 0 and less than 100",
+  "invalidAnswer" : "That's not a valid answer",
+  "goodbye" : "Thanks for using the calculator. Goodbye!"
+}
