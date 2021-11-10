@@ -43,24 +43,24 @@ join the array back to a string and return it
 // }
 
 // refactored with map
-function reverseWords(str) {
-  let wordsArr = str.split(' ');
-  let newArr = wordsArr.map((word) => {
-  if(word.length >=5) {
-    return word.split('').reverse().join('');
-  } else {
-    return word;
-  }
-})
-return newArr.join(' ');
-}
-
-// refactord with map and ternary operator
 // function reverseWords(str) {
 //   let wordsArr = str.split(' ');
-//   let newArr = wordsArr.map((word) => word.length >=5 ? word.split('').reverse().join('') : word);
-//   return newArr.join(' ');
+//   let newArr = wordsArr.map((word) => {
+//   if(word.length >=5) {
+//     return word.split('').reverse().join('');
+//   } else {
+//     return word;
+//   }
+// })
+// return newArr.join(' ');
 // }
+
+// map and ternary operator
+function reverseWords(str) {
+  let wordsArr = str.split(' ');
+  let newArr = wordsArr.map((word) => word.length >=5 ? word.split('').reverse().join('') : word);
+  return newArr.join(' ');
+}
 
 console.log(reverseWords('Professional') ===  "lanoisseforP");
 console.log(reverseWords('Walk around the block') === "Walk dnuora the kcolb");
