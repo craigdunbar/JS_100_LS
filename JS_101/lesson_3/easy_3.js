@@ -32,7 +32,29 @@ arr2[0].first = 42;
 console.log(arr1); // [{ first: 42 }, { second: "value2" }, 3, 4, 5]
 
 Question 5
-
+Re-write the following function so it only has one return 
+statement and does not use either true of fasle..
+function isColorValid(color) {
+  if (color === "blue" || color === "green") {
+    return true;
+  } else {
+    return false;
+  }
+}
+// refactored
+function isColorValid(color) {
+  return color === 'blue || color === 'green';
+}
+// using arrow funciton
+isColorValid = color => color === 'blue' || color === 'green';
 
 */
 
+// function isColorValid(color) {
+//   return color === 'blue' || color === 'green';
+// }
+
+isColorValid = color => color === 'blue' || color === 'green';
+
+console.log(isColorValid('blue'));
+console.log(isColorValid('red'));
