@@ -126,5 +126,40 @@ flintstones.forEach(el => {
 })
 
 Question 7
+Consider the following object:
+let flintstones = { Fred: 0, Wilma: 1, Barney: 2, Betty: 3, Bambam: 4, Pebbles: 5 };
+
+Create an array from this object that contains only two
+elements: Barney's name and number
+
+let flintstones = { Fred: 0, Wilma: 1, Barney: 2, Betty: 3, Bambam: 4, Pebbles: 5 };
+let newArr =[];
+newArr = Object.entries(flintstones)[2]
+console.log(newArr);
+
+Question 8
+Check whether the objects assigned to variables numbers and
+table are arrays?
+
+let numbers = [1, 2, 3, 4]; // true
+let table = { field1: 1, field2: 2, field3: 3, field4: 4 }; // false
+console.log(Array.isArray(numbers));
+console.log(Array.isArray(table));
+
+Question 9
+Center the following title over a 40 character wide.
+let title = "Flintstone Family Members";
+let pad = Math.floor((40 - title.length) / 2);
+console.log(title.padStart(pad + title.length));
+
+Question 10
+Write two one-line expressions to count the number of
+lower case t characters in each of the following strings:
+
+let statement1 = "The Flintstones Rock!";
+let statement2 = "Easy come, easy go.";
+
+console.log(statement1.split('').filter(char => char === 't').length);
+console.log(statement2.split('').filter(char => char === 't').length);
 
 */
