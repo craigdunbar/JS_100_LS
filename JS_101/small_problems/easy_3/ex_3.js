@@ -42,7 +42,7 @@ print string
 
 // using a ternary operator
 function stringy(num) {
-  str =''
+  let str =''
   for ( let count = 0; count < num; count++) {
     let digit = ((count % 2) === 0) ? 1 : 0;
     str += digit

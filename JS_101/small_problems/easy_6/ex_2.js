@@ -3,11 +3,12 @@
 // and returns a new string
 
 function doubleConsonants(str) {
-    let vowels = ['a', 'e', 'i', 'o', 'u', '!', '-', '4', ' '];
+    let consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
+                  'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'];
     let newStr =''
     let strArr = Array.from(str);
     for (let idx = 0; idx < strArr.length; idx++) {
-        if (!vowels.includes(strArr[idx])) {
+        if (consonants.includes((strArr[idx]).toLowerCase())) {
           newStr += strArr[idx].repeat(2);
         } else {
           newStr += strArr[idx];

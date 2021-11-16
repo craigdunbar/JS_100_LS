@@ -20,7 +20,7 @@ repeat for all characters of the string
 */
 function sum(num) {
     let numArr = num.toString().split('');
-    return numArr.reduce((previous, current) => previous + Number(current), 0);
+    return numArr.reduce((previous, current) => Number(previous) + Number(current), 0);
 }
 
 console.log(sum(23));           // 5
