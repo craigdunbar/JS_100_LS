@@ -29,17 +29,22 @@ substrings('abcde');
   return the subarray
   return the flattened substring array 
 */
+
 function substrings(str) {
-    let totalArr = []
-    let letters = str.split('');
-    let substringArr = [];
-    letters.forEach((letter) => {
-        console.log(letter)
-        substringArr = letters.map((char, index) => str.slice(letter,index + 1));
-        console.log(substringArr);
-        totalArr.push(substringArr);
-    });
-    return totalArr
-    };
-    
-    console.log(substrings('abcde'));
+  let substringsArr = [];
+  for (let count = 0; count < str.length; count ++) {
+    let substring = str.substring(count);
+    substringsArr.push(leadingSubstrings(substring));
+  }
+  return substringsArr.flat();
+}
+
+function leadingSubstrings(str) {
+  let arr = [];
+  for (let idx = 0; idx < str.length; idx++) {
+    arr.push(str.slice(0, str.length - idx));
+  }
+  return(arr.reverse());
+}
+
+console.log(substrings('abcde'));
