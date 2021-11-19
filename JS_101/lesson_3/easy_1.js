@@ -85,9 +85,10 @@ console.log(flintstones);
 Question 10
 Return a new sentance that ends just before the word house.
 
-*/
 let advice = "Few things in life are as important as house training your pet dinosaur.";
-// console.log(advice.indexOf('house'));
-// console.log(advice.substring(0, 38));
-// or 
+console.log(advice.indexOf('house'));
+console.log(advice.substring(0, 38));
+or 
 console.log(advice.substring(0, advice.indexOf('house')));
+
+*/
