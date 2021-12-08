@@ -124,9 +124,11 @@ console.log(Math.min(...Object.values(ages)));
 *** Problem 11 ***
 Create an object that expresses the frequency with which
 each letter occurs in the string.
+
 let statement = "The Flintstones Rock";
 statement = statement.replace(/ /g, '');
 let charObj = {}
+
 for (let count = 0; count < statement.length; count++) {
   let objKey = statement[count];
   if (Object.keys(charObj).includes(objKey)) {
@@ -137,3 +139,5 @@ for (let count = 0; count < statement.length; count++) {
 }
 console.log(charObj);
 */
+let words = ['go', 'ahead', 'and', 'jump'];
+console.log(words.sort((a, b) => a.length - b.length));

@@ -76,7 +76,7 @@
 // }
 // console.log(doubleOddIndices(numbers));
 
-// Write a function that lets you multiply everyn array item
+// Write a function that lets you multiply every array item
 // by a specified value. Return a new array
 
 let myNumbers = [1, 4, 3, 7, 2, 6];
