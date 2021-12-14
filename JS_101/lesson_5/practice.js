@@ -242,7 +242,77 @@ so that the sub-arrays are ordered based on the sum
 of the odd numbers that they contain.
 
 let arr = [[1, 6, 7], [1, 5, 3], [1, 8, 3]];
-*/
+console.log(arr.sort((a, b) => {
+  let filteredA = a.filter(num => num % 2 === 1).reduce((a, b) => a + b);
+  let filteredB = b.filter(num => num % 2 === 1).reduce((a, b) => a + b);
+  return filteredA - filteredB;
+}));
 
-let arr = [[1, 6, 7], [1, 5, 3], [1, 8, 3]];
+*** Problem 14 ***
+Given the following data structure write some code to return
+an array containing the colors of the fruits and the sizes
+of the vegetables. Sizes should be uppercase and colours
+should be capitalized.
+
+let obj = {
+  grape: { type: 'fruit', colors: ['red', 'green'], size: 'small' },
+  carrot: { type: 'vegetable', colors: ['orange'], size: 'medium' },
+  apple: { type: 'fruit', colors: ['red', 'green'], size: 'medium' },
+  apricot: { type: 'fruit', colors: ['orange'], size: 'medium' },
+  marrow: { type: 'vegetable', colors: ['green'], size: 'large' },
+};
+
+let newArr = []
+for (let key in obj) {
+  currentValues = obj[key];
+  if (currentValues['type'] === 'fruit') {
+    item = currentValues['colors'];
+    newItem = item.map(el => {
+    return el[0].toUpperCase() + el.slice(1);
+    });
+    newArr.push(newItem);
+  } else if (currentValues['type'] === 'vegetable') {
+    newArr.push(currentValues['size'].toUpperCase());
+  }
+}
+console.log(newArr);
+
+*** Problem 15 ***
+Given the following data structure, write some code to 
+return an array which contains only the objects where
+all the numbers are even
+
+let arr = [
+  { a: [1, 2, 3] },
+  { b: [2, 4, 6], c: [3, 6], d: [4] },
+  { e: [8], f: [6, 10] },
+];
+
+console.log(arr.filter(obj => {
+  return Object.values(obj).every(subArr => {
+    return subArr.every((num => num % 2 === 0));
+  });
+}));
+
+*** Problem 16 ***
+Given the following data structure, write some code that
+returns an object where the key is the first item in each
+subarray and the value is the second.
+
+let arr = [['a', 1], ['b', 'two'], ['sea', {'c': 3}], ['D', ['a', 'b', 'c']]];
+console.log(Object.fromEntries(arr));
+
+// longer method using forEach..
+let obj = {}
+arr.forEach( entry => {
+let key = entry[0];
+let value = entry[1];
+
+obj[key] = value;
+});
+console.log(obj);
+
+*** Problem 17 ***
+
+*/
 
