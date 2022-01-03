@@ -251,4 +251,21 @@ function toCamelCase(str){
 }
 }
 
+*** Does my number look big in this?
+
+function narc(value) {
+  let numArr = String(value).split('')
+  length = numArr.length
+  total = 0
+  for (let count = 0; count < length; count ++) {
+    total += numArr[count] ** length
+  }
+  if (total === value) {
+    return true
+  } else {
+    return false
+  }
+}
+
+
 */
