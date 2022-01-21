@@ -267,5 +267,63 @@ function narc(value) {
   }
 }
 
+*** Detect Pangram
+
+function pangram(string) {
+let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+let str = string.toLowerCase();
+str = str.replace(/ /g, '').replace(/[^a-z]/gi, '');
+let newStr = Array.from(new Set(str));
+total = 0
+
+for (let count = 0; count < newStr.length; count ++) {
+  if (alphabet.includes(newStr[count])) {
+    total += 1
+  }
+}
+if (total === 26) {
+  return true
+} else {
+  return false
+}
+}
+console.log(pangram("the quick brown fox jumps over the lazy dog"));
+console.log(pangram('Cwm fjord bank glyphs vext quiz'));
+console.log(pangram('Pack my box with five dozen liquor jugs.'));
+
+*** Find the missing letter
+
+function find(arr) {
+  for(let count = 0; count < arr.length - 1; count ++) {
+    if((arr[count].charCodeAt() + 1) !== (arr[count + 1].charCodeAt())) {
+      return (String.fromCharCode(arr[count].charCodeAt() + 1));
+    }
+  }
+}
+console.log(find(["a","b","c","d","f"]));
+console.log(find(["O","Q","R","S"]));
+
+*** Find the unique number
+
+function findUniq(array) {
+  let result = {};
+    for (let index = 0; index < array.length; index++) {
+        currentNum = array[index];
+        if (Object.keys(result).includes(String(currentNum))) {
+          result[currentNum] = result[currentNum] + 1;
+        } else {
+          result[currentNum] = 1;
+        }
+  }
+  for(key in result) {
+    if(result[key] === 1) {
+      return key;
+    }
+  }
+  }
+
+console.log(findUniq([1, 1, 1, 2, 1, 1]));
+console.log(findUniq([0, 0, 0.55, 0, 0 ]));
 
 */
+
