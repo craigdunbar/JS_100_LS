@@ -30,21 +30,33 @@ substrings('abcde');
   return the flattened substring array 
 */
 
-function substrings(str) {
-  let substringsArr = [];
-  for (let count = 0; count < str.length; count ++) {
-    let substring = str.substring(count);
-    substringsArr.push(leadingSubstrings(substring));
-  }
-  return substringsArr.flat();
-}
+// function substrings(str) {
+//   let substringsArr = [];
+//   for (let count = 0; count < str.length; count ++) {
+//     let substring = str.substring(count);
+//     substringsArr.push(leadingSubstrings(substring));
+//   }
+//   return substringsArr.flat();
+// }
 
-function leadingSubstrings(str) {
-  let arr = [];
-  for (let idx = 0; idx < str.length; idx++) {
-    arr.push(str.slice(0, str.length - idx));
-  }
-  return(arr.reverse());
-}
+// function leadingSubstrings(str) {
+//   let arr = [];
+//   for (let idx = 0; idx < str.length; idx++) {
+//     arr.push(str.slice(0, str.length - idx));
+//   }
+//   return(arr.reverse());
+// }
 
-console.log(substrings('abcde'));
+// console.log(substrings('abcde'));
+
+// using list processing functions: 
+
+// function substrings(str) {
+//   return str.split('').map((_, index) => leadingSubstrings(str.slice(index))).flat();
+// }
+
+// function leadingSubstrings(str) {
+//   return str.split('').map((_, index) => str.slice(0,index + 1));
+//   }
+
+// console.log(substrings('abcde'));
