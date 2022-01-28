@@ -45,5 +45,9 @@ function buyFruit(array) {
   })
   return newArr;
 }
+// using map and fill
+const buyFruit = (fruitList) => {
+  return fruitList.map(([fruit, count]) => Array(count).fill(fruit)).flat();
+}
 
 console.log(buyFruit([['apple', 3], ['orange', 1], ['banana', 2]]));
