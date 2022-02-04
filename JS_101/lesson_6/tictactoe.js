@@ -2,9 +2,17 @@ const readline = require('readline-sync');
 const INITIAL_MARKER = ' ';
 const HUMAN_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
+const winningLines = [
+  [1, 2, 3], [4, 5, 6], [7, 8, 9], // rows
+  [1, 4, 7], [2, 5, 8], [3, 6, 9], // coumns
+  [1, 5, 9], [3, 5, 7]            // diagonal
+];
 
-function displayBoard() {
+function displayBoard(board) {
   console.clear();
+
+  console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
+
   console.log('');
   console.log('     |     |');
   console.log(`  ${board['1']}  |  ${board['2']}  |  ${board['3']}  `);
@@ -22,7 +30,7 @@ function displayBoard() {
 function initalizeBoard() {
   let board = {};
 
-  for (let square = 1; square <= 9; square ++) {
+  for (let square = 1; square <= 9; square++) {
     board[String(square)] = INITIAL_MARKER;
   }
   return board;
@@ -38,15 +46,15 @@ function emptySquares(board) {
 
 function playerChoosesSquare(board) {
   let square;
-  
-  while(true) {
+
+  while (true) {
     prompt(`Choose a square(${emptySquares(board).join(', ')}):`);
     square = readline.question().trim();
     if (emptySquares(board).includes(square)) break;
-  
+
     prompt("Sorry, that's not a valid choice.");
-    }
-  
+  }
+
   board[square] = HUMAN_MARKER;
 }
 
@@ -66,44 +74,51 @@ function someoneWon(board) {
 }
 
 function detectWinner(board) {
-  let winningLines = [
-    [1, 2, 3], [4, 5, 6], [7, 8, 9], // rows
-    [1, 4, 7], [2, 5, 8], [3, 6, 9], // coumns
-    [1, 5, 9], [3, 5, 7]            // diagonal
-  ];
-  
-  for (let line = 0; line < winningLines.length; line ++) {
+// moved winningLines to a constant at top of code to fix ESlint error
+  for (let line = 0; line < winningLines.length; line++) {
     let [sq1, sq2, sq3] = winningLines[line];
-    
+
     if (
       board[sq1] === HUMAN_MARKER &&
       board[sq2] === HUMAN_MARKER &&
       board[sq3] === HUMAN_MARKER
-  ) {
-    return 'Player';
-  } else if (
-     board[sq1] === COMPUTER_MARKER &&
-    board[sq2] === COMPUTER_MARKER &&
+    ) {
+      return 'Player';
+    } else if (
+      board[sq1] === COMPUTER_MARKER &&
+      board[sq2] === COMPUTER_MARKER &&
       board[sq3] === COMPUTER_MARKER
-      ) {
-        return 'Computer';
-      }
+    ) {
+      return 'Computer';
+    }
   }
   return null;
 }
 
-let board = initalizeBoard();
-displayBoard(board);
+while (true) {
+  let board = initalizeBoard();
 
-while(true) {
-playerChoosesSquare(board);
-computerChoosesSquare(board);
-displayBoard(board);
+  while (true) {
+    displayBoard(board);
 
-if (someoneWon(board) || boardFull(board)) break;
+    playerChoosesSquare(board);
+    if (someoneWon(board) || boardFull(board)) break;
+
+    computerChoosesSquare(board);
+    if (someoneWon(board) || boardFull(board)) break;
+
+  }
+
+  displayBoard(board);
+
+  if (someoneWon(board)) {
+    prompt(`${detectWinner(board)} won!`);
+  } else {
+    prompt("It'a a tie!");
+  }
+
+  prompt('Play again? (y or no)');
+  let answer = readline.question().toLowerCase()[0];
+  if (answer !== 'y') break;
 }
-if (someoneWon(board)) {
-  prompt(`${detectWinner(board)} won!`);
-} else {
-  prompt("It'a a tie!");
-}
+prompt('Thanks for playing! Goodbye');
