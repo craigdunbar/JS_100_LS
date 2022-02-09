@@ -7,6 +7,7 @@ const winningLines = [
   [1, 4, 7], [2, 5, 8], [3, 6, 9], // coumns
   [1, 5, 9], [3, 5, 7]            // diagonal
 ];
+const WINNING_SCORE = 3;
 
 function displayBoard(board) {
   console.clear();
@@ -40,15 +41,36 @@ function prompt(msg) {
   console.log(` => ${msg}`);
 }
 
+function pause() {
+  let now = Date.now();
+  let end = now + 3000;
+  while (now < end) {
+    now = Date.now();
+  }
+}
+
 function emptySquares(board) {
   return Object.keys(board).filter(key => board[key] === INITIAL_MARKER);
+}
+
+function joinOr(array, delimiter = ', ', string = 'or') {
+
+  if (array.length > 2) {
+    return `${array.slice(0, array.length - 1).join(`${delimiter}`)} ${string} ${array[array.length - 1]}`;
+  } else if (array.length === 2) {
+    return array.join(` ${string} `);
+  } else if (array.length === 1) {
+    return `${array[0]}`;
+  } else if (array.length === 0) {
+    return "";
+  }
 }
 
 function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(`Choose a square(${emptySquares(board).join(', ')}):`);
+    prompt(`Choose a square (${joinOr(emptySquares(board))}):`);
     square = readline.question().trim();
     if (emptySquares(board).includes(square)) break;
 
@@ -94,29 +116,83 @@ function detectWinner(board) {
   }
   return null;
 }
+function currentScore(score, board) {
+
+  if (detectWinner(board) === 'Player') {
+    score.player += 1;
+  } else if (detectWinner(board) === 'Computer') {
+    score.computer += 1;
+  } else {
+    score;
+  }
+}
+
+function displayScore(score) {
+  prompt(`Current score is: Player has ${score.player}, Computer has ${score.computer}`);
+}
+
+function overallWinner(score) {
+  if (score.player === WINNING_SCORE) {
+    return 'Player';
+  } else if (score.computer === WINNING_SCORE) {
+    return 'Computer';
+  }
+}
+
+function computerDefense(board) {
+
+  for (let line = 0; line < winningLines.length; line++) {
+    let [sq1, sq2, sq3] = winningLines[line];
+
+    if (board[sq1] === HUMAN_MARKER && board[sq2] === HUMAN_MARKER
+        && board[sq3] === INITIAL_MARKER) {
+      board[sq3] = COMPUTER_MARKER;
+    } else if (board[sq1] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
+                  && board[sq2] === INITIAL_MARKER) {
+      board[sq2] = COMPUTER_MARKER;
+    } else if (board[sq2] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
+                  && board[sq1] === INITIAL_MARKER) {
+      board[sq1] = COMPUTER_MARKER;
+    }
+  }
+  computerChoosesSquare(board);
+}
 
 while (true) {
-  let board = initalizeBoard();
+
+  let score = {player: 0, computer: 0};
 
   while (true) {
+    let board = initalizeBoard();
+    console.log(`Current Score is ${score.player}`);
+    while (true) {
+
+      displayBoard(board);
+
+      playerChoosesSquare(board);
+      if (someoneWon(board) || boardFull(board)) break;
+
+      computerDefense(board);
+      if (someoneWon(board) || boardFull(board)) break;
+
+    }
+
     displayBoard(board);
 
-    playerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
+    if (someoneWon(board)) {
+      prompt(`${detectWinner(board)} won!`);
+    } else {
+      prompt("It'a a tie!");
+    }
+    currentScore(score, board);
+    displayScore(score);
+    pause();
 
-    computerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
-
+    if (overallWinner(score)) {
+      prompt(`${overallWinner(score)} is the winner!`);
+      break;
+    }
   }
-
-  displayBoard(board);
-
-  if (someoneWon(board)) {
-    prompt(`${detectWinner(board)} won!`);
-  } else {
-    prompt("It'a a tie!");
-  }
-
   prompt('Play again? (y or no)');
   let answer = readline.question().toLowerCase()[0];
   if (answer !== 'y') break;
