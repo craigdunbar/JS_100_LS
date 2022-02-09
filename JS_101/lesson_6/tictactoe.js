@@ -84,17 +84,22 @@ function computerChoosesSquare(board) {
   let square;
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
-    square = findThreat(line, board, HUMAN_MARKER);
+    square = findThreat(line, board, COMPUTER_MARKER);
     if (square) break;
   }
   if (!square) {
     for (let index = 0; index < WINNING_LINES.length; index++) {
       let line = WINNING_LINES[index];
-      square = findThreat(line, board, COMPUTER_MARKER);
+      square = findThreat(line, board, HUMAN_MARKER);
       if (square) break;
     }
   }
   if (!square) {
+    if (emptySquares(board).includes('5')) {
+      square = '5';
+    }
+  }
+  if(!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
     square = emptySquares(board)[randomIndex];
   }
