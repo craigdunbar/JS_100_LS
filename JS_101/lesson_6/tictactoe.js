@@ -2,7 +2,7 @@ const readline = require('readline-sync');
 const INITIAL_MARKER = ' ';
 const HUMAN_MARKER = 'X';
 const COMPUTER_MARKER = 'O';
-const winningLines = [
+const WINNING_LINES = [
   [1, 2, 3], [4, 5, 6], [7, 8, 9], // rows
   [1, 4, 7], [2, 5, 8], [3, 6, 9], // coumns
   [1, 5, 9], [3, 5, 7]            // diagonal
@@ -81,12 +81,26 @@ function playerChoosesSquare(board) {
 }
 
 function computerChoosesSquare(board) {
-
-  let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
-  let square = emptySquares(board)[randomIndex];
-
+  let square;
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    let line = WINNING_LINES[index];
+    square = findThreat(line, board, HUMAN_MARKER);
+    if (square) break;
+  }
+  if (!square) {
+    for (let index = 0; index < WINNING_LINES.length; index++) {
+      let line = WINNING_LINES[index];
+      square = findThreat(line, board, COMPUTER_MARKER);
+      if (square) break;
+    }
+  }
+  if (!square) {
+    let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
+    square = emptySquares(board)[randomIndex];
+  }
   board[square] = COMPUTER_MARKER;
 }
+
 function boardFull(board) {
   return emptySquares(board).length === 0;
 }
@@ -97,8 +111,8 @@ function someoneWon(board) {
 
 function detectWinner(board) {
 // moved winningLines to a constant at top of code to fix ESlint error
-  for (let line = 0; line < winningLines.length; line++) {
-    let [sq1, sq2, sq3] = winningLines[line];
+  for (let line = 0; line < WINNING_LINES.length; line++) {
+    let [sq1, sq2, sq3] = WINNING_LINES[line];
 
     if (
       board[sq1] === HUMAN_MARKER &&
@@ -139,24 +153,56 @@ function overallWinner(score) {
   }
 }
 
-function computerDefense(board) {
+function findThreat(line, board, marker) {
+  let currentMarkers = line.map(square => board[square]);
 
-  for (let line = 0; line < winningLines.length; line++) {
-    let [sq1, sq2, sq3] = winningLines[line];
-
-    if (board[sq1] === HUMAN_MARKER && board[sq2] === HUMAN_MARKER
-        && board[sq3] === INITIAL_MARKER) {
-      board[sq3] = COMPUTER_MARKER;
-    } else if (board[sq1] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
-                  && board[sq2] === INITIAL_MARKER) {
-      board[sq2] = COMPUTER_MARKER;
-    } else if (board[sq2] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
-                  && board[sq1] === INITIAL_MARKER) {
-      board[sq1] = COMPUTER_MARKER;
+  if (currentMarkers.filter(el => el === marker).length === 2) {
+    let openSquare = line.find(square => board[square] === INITIAL_MARKER);
+    if (openSquare !== undefined) {
+      return openSquare;
     }
   }
-  computerChoosesSquare(board);
+  return null;
 }
+// function computerDefense(board) {
+
+//   for (let line = 0; line < .length; line++) {
+//     let [sq1, sq2, sq3] = winningLines[line];
+
+//     if (board[sq1] === HUMAN_MARKER && board[sq2] === HUMAN_MARKER
+//         && board[sq3] === INITIAL_MARKER) {
+//       board[sq3] = COMPUTER_MARKER;
+//     } else if (board[sq1] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
+//                   && board[sq2] === INITIAL_MARKER) {
+//       board[sq2] = COMPUTER_MARKER;
+//     } else if (board[sq2] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
+//                   && board[sq1] === INITIAL_MARKER) {
+//       board[sq1] = COMPUTER_MARKER;
+//   }
+// }
+//   computerOffense(board);
+//   // computerChoosesSquare(board);
+//   // return false;
+// }
+
+
+// function computerOffense(board) {
+//   for (let line = 0; line < winningLines.length; line++) {
+//     let [sq1, sq2, sq3] = winningLines[line];
+
+//     if (board[sq1] === COMPUTER_MARKER && board[sq2] === COMPUTER_MARKER && board[sq3] === INITIAL_MARKER) {
+//           board[sq3] = COMPUTER_MARKER;
+//       } else if (board[sq1] === COMPUTER_MARKER && board[sq3] === COMPUTER_MARKER & board[sq2] === COMPUTER_MARKER) {
+//           board[sq2] = COMPUTER_MARKER;
+//       } else if (board[sq2] === COMPUTER_MARKER && board[sq3] === COMPUTER_MARKER & board[sq1] === INITIAL_MARKER) {
+//           board[sq2] = COMPUTER_MARKER;
+//       } else {
+//         break;
+//       }
+//   }
+//   computerChoosesSquare(board);
+//   // return false;
+// }
 
 while (true) {
 
@@ -172,7 +218,7 @@ while (true) {
       playerChoosesSquare(board);
       if (someoneWon(board) || boardFull(board)) break;
 
-      computerDefense(board);
+      computerChoosesSquare(board);
       if (someoneWon(board) || boardFull(board)) break;
 
     }
