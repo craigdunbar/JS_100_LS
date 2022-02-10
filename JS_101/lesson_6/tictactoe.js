@@ -7,7 +7,8 @@ const WINNING_LINES = [
   [1, 4, 7], [2, 5, 8], [3, 6, 9], // coumns
   [1, 5, 9], [3, 5, 7]            // diagonal
 ];
-const WINNING_SCORE = 3;
+const WINNING_SCORE = 1;
+const FIRST_MOVE = 'choose';
 
 function displayBoard(board) {
   console.clear();
@@ -64,6 +65,7 @@ function joinOr(array, delimiter = ', ', string = 'or') {
   } else if (array.length === 0) {
     return "";
   }
+  return null;
 }
 
 function playerChoosesSquare(board) {
@@ -110,7 +112,7 @@ function someoneWon(board) {
 }
 
 function detectWinner(board) {
-// moved winningLines to a constant at top of code to fix ESlint error
+
   for (let line = 0; line < WINNING_LINES.length; line++) {
     let [sq1, sq2, sq3] = WINNING_LINES[line];
 
@@ -137,8 +139,9 @@ function currentScore(score, board) {
   } else if (detectWinner(board) === 'Computer') {
     score.computer += 1;
   } else {
-    score;
+    return score;
   }
+  return null;
 }
 
 function displayScore(score) {
@@ -151,6 +154,7 @@ function overallWinner(score) {
   } else if (score.computer === WINNING_SCORE) {
     return 'Computer';
   }
+  return null;
 }
 
 function findThreat(line, board, marker) {
@@ -164,63 +168,65 @@ function findThreat(line, board, marker) {
   }
   return null;
 }
-// function computerDefense(board) {
+function playFirst(board, currentPlayer) {
+  if (currentPlayer === 'computer') {
+    computerChoosesSquare(board);
+  } else {
+    playerChoosesSquare(board);
+  }
+}
 
-//   for (let line = 0; line < .length; line++) {
-//     let [sq1, sq2, sq3] = winningLines[line];
+function alternatePlayer(currentPlayer) {
+  return currentPlayer === 'computer' ? 'player' : 'computer';
+}
 
-//     if (board[sq1] === HUMAN_MARKER && board[sq2] === HUMAN_MARKER
-//         && board[sq3] === INITIAL_MARKER) {
-//       board[sq3] = COMPUTER_MARKER;
-//     } else if (board[sq1] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
-//                   && board[sq2] === INITIAL_MARKER) {
-//       board[sq2] = COMPUTER_MARKER;
-//     } else if (board[sq2] === HUMAN_MARKER && board[sq3] === HUMAN_MARKER
-//                   && board[sq1] === INITIAL_MARKER) {
-//       board[sq1] = COMPUTER_MARKER;
-//   }
-// }
-//   computerOffense(board);
-//   // computerChoosesSquare(board);
-//   // return false;
-// }
+function chooseFirstPlayer() {
+  let chosenPlayer;
+  while (true) {
+    prompt('Who will play first? Enter computer or player: ');
+    chosenPlayer = readline.question().toLowerCase();
+    if (chosenPlayer === 'player' || chosenPlayer === 'computer') break;
 
+    prompt("Sorry, that's not a valid choice.");
+  }
+  return chosenPlayer;
+}
 
-// function computerOffense(board) {
-//   for (let line = 0; line < winningLines.length; line++) {
-//     let [sq1, sq2, sq3] = winningLines[line];
+function playAgain() {
+  let answer;
+  while (true) {
+    prompt('Play again? (y or n)');
+    let answer = readline.question().toLowerCase();
+    if (answer === 'y' || answer === 'n') break;
+    prompt("Sorry that's not a valid input");
+  }
+  if (answer !== 'y') {
+    return false;
+  }
+  return null;
+}
 
-//     if (board[sq1] === COMPUTER_MARKER && board[sq2] === COMPUTER_MARKER && board[sq3] === INITIAL_MARKER) {
-//           board[sq3] = COMPUTER_MARKER;
-//       } else if (board[sq1] === COMPUTER_MARKER && board[sq3] === COMPUTER_MARKER & board[sq2] === COMPUTER_MARKER) {
-//           board[sq2] = COMPUTER_MARKER;
-//       } else if (board[sq2] === COMPUTER_MARKER && board[sq3] === COMPUTER_MARKER & board[sq1] === INITIAL_MARKER) {
-//           board[sq2] = COMPUTER_MARKER;
-//       } else {
-//         break;
-//       }
-//   }
-//   computerChoosesSquare(board);
-//   // return false;
-// }
+// Main game loop
 
 while (true) {
 
   let score = {player: 0, computer: 0};
+  let firstPlayer = FIRST_MOVE === 'choose' ? chooseFirstPlayer() : FIRST_MOVE;
 
   while (true) {
     let board = initalizeBoard();
     console.log(`Current Score is ${score.player}`);
+
+    let currentPlayer = firstPlayer;
+
     while (true) {
 
       displayBoard(board);
 
-      playerChoosesSquare(board);
-      if (someoneWon(board) || boardFull(board)) break;
+      playFirst(board, currentPlayer);
+      currentPlayer = alternatePlayer(currentPlayer);
 
-      computerChoosesSquare(board);
       if (someoneWon(board) || boardFull(board)) break;
-
     }
 
     displayBoard(board);
@@ -239,8 +245,6 @@ while (true) {
       break;
     }
   }
-  prompt('Play again? (y or no)');
-  let answer = readline.question().toLowerCase()[0];
-  if (answer !== 'y') break;
+  if (playAgain() === false) break;
 }
 prompt('Thanks for playing! Goodbye');
