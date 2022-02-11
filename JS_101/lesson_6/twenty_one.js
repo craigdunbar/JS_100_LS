@@ -11,16 +11,45 @@ function getCard() {
 }
 
 function playersCards(getCard) {
-  firstCard = getCard()
-  secondCard = getCard()
-  return [firstCard, secondCard];
+  firstCard = getCard();
+  secondCard = getCard();
+  thirdCard = getCard();
+  console.log([firstCard, secondCard, thirdCard]);
+  return [firstCard, secondCard, thirdCard];
 }
 function displayPlayersCards(playersCards) {
-  console.log(`You have ${firstCard.join(' ')} and ${secondCard.join(' ')}`);
+  console.log(`You have ${firstCard.join(' ')} and ${secondCard.join(' ')} and ${thirdCard.join(' ')}`);
 }
 
 function getTotalScore(playersCards) {
-  let totalScore = Number(firstCard[0]) + Number(secondCard[0]);
+
+  if (['J', 'Q', 'K'].includes(firstCard[0])) {
+    valueFirstCard = 10;
+  } else if (['A'].includes(firstCard[0])) {
+    valueFirstCard = 11
+  } else {
+    valueFirstCard = Number(firstCard[0]);
+  }
+
+  if (['J', 'Q', 'K'].includes(secondCard[0])) {
+    valueSecondCard = 10;
+  } else if ((['A'].includes(secondCard[0]))) {
+    valueSecondCard = 11;
+  } else {
+    valueSecondCard = Number(secondCard[0]);
+  }
+
+  if (['J', 'Q', 'K'].includes(thirdCard[0])) {
+    valueThirdCard = 10;
+  } else if ((['A'].includes(thirdCard[0]))) {
+    valueThirdCard = 11;
+  } else {
+    valueThirdCard = Number(thirdCard[0]);
+  }
+  let totalScore = valueFirstCard + valueSecondCard + valueThirdCard;
+  if( totalScore > 21 && ([firstCard, secondCard, thirdCard].filter(el => el[0] === 'A').length > 0)) { 
+    totalScore -= 10;
+  }
   return totalScore;
 }
 
