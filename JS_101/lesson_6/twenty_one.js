@@ -27,7 +27,7 @@ function playersCards(playersHand) {
 
   let firstCard = getCard();
   let secondCard = getCard();
-  if (secondCard === firstCard) {
+  if (secondCard.join(' ') === firstCard.join(' ')) {
     secondCard = getCard();
   }
 
@@ -73,7 +73,8 @@ function dealersCards(dealersHand) {
 
   let firstCard = getCard();
   let secondCard = getCard();
-  if (secondCard === firstCard) {
+
+  if (secondCard.join(' ') === firstCard.join(' ')) {
     secondCard = getCard();
   }
 
@@ -167,7 +168,7 @@ while (true) {
       if (answer === 'h') {
         let nextCard = getCard();
         playersHand.forEach(card => {
-          if (card.join() === nextCard.join()) {
+          if (card.join(' ') === nextCard.join(' ')) {
             nextCard = getCard();
           }
         });
