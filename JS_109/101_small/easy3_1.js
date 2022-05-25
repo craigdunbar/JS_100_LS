@@ -23,17 +23,26 @@ crunch('ggggggggggggggg');            // "g"
 crunch('a');                          // "a"
 crunch('');                           // ""
 # ----------------------------ALGO---------------------------
-# 
+# split the given string into an array of characters.
+iterate over the string and add the first character to a new array
+compare the next character with the last character of the new array and if they are the same don't add it.
+if they are different add it to the new array.
+continue until all the letters have been checked.
+
 */
 function crunch(string) {
   let arr = string.split('');
   let newArr = [];
-  arr.forEach(el => {
-
-  })
+  for (let i = 0; i < arr.length; i++) {
+    if (newArr[(newArr.length) - 1] !== arr[i]) {
+      newArr.push(arr[i])
+    }
+  }
+    return newArr.join('');
 }
-crunch('ddaaiillyy ddoouubbllee');    // "daily double"
-crunch('4444abcabccba');              // "4abcabcba"
-crunch('ggggggggggggggg');            // "g"
-crunch('a');                          // "a"
-crunch('');                           // ""
+
+console.log(crunch('ddaaiillyy ddoouubbllee'));    // "daily double"
+console.log(crunch('4444abcabccba'));              // "4abcabcba"
+console.log(crunch('ggggggggggggggg'));            // "g"
+console.log(crunch('a'));                          // "a"
+console.log(crunch(''));                           // ""
