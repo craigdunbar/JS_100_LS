@@ -28,7 +28,8 @@ let rlSync = require('readline-sync');
 let age = rlSync.question("How old are you?: ");
 let retire = rlSync.question("What age do you want to retire?: ");
 
-let currentYear = 2022;
+let currentYear = new Date().getFullYear()
+
 let retirementYear = currentYear + (retire - age);
 let yearsToRetirement = retire - age
 
