@@ -30,3 +30,9 @@ randomSuit = suitArray[Math.floor(Math.random()
               * suitArray.length)];
 randomCard = randomValue + ' ' + randomSuit;
 console.log(randomCard);
+
+To calculate the score in the hand
+add the card values together
+- if the hand has a J, Q, or K we need to change that value to 10 otherwise we will get a NaN
+- if the hand has an A then we need to determine if the A should be 1 or 11
+    do this by looking at the total score. If it's more than 21 then A should be 1
