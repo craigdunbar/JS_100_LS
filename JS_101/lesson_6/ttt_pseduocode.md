@@ -60,3 +60,20 @@ for (let line = 0; line < winningLines.length; line++) {
     }
   }
 }
+
+although the above code works the functions are cumbersome. I'll use the LS solution instead.
+
+This solution searches through each element of the winningLines array as before looking for the winningline that has 
+two elements filled already.
+
+function findThreat(line, board) {
+  let currentMarkers = line.map(square => board[square]);
+
+  if (currentMarkers.filter(el => el === 'X').length === 2) {
+    let openSquare = line.find(square => board[square] === ' ');
+    if (openSquare !== undefined) {
+      return openSquare;
+    }
+  }
+  return null;
+}

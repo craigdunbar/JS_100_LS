@@ -1,6 +1,6 @@
 Initialize deck
 Deal cards to the player and the dealer
-Player turn: hot or stay
+Player turn: hit or stay
   - repeat until bust or stay
 If player bust, dealer wins.
 Dealer turn: hit or stay
@@ -30,3 +30,13 @@ randomSuit = suitArray[Math.floor(Math.random()
               * suitArray.length)];
 randomCard = randomValue + ' ' + randomSuit;
 console.log(randomCard);
+
+The players hand will be the combination of running randomCard twice.
+I will use nested array to create the hand.
+
+To calculate the score in the hand:
+- sum the values of each card
+- if the value is J, Q, K then make it 10
+- if the value is A then we need to decide if it's going to be worth 1 or 11.
+  we can do this by looking at overall hand total.
+  if it's over 21 then A is 1 else it's 11.
