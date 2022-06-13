@@ -52,15 +52,15 @@ over every character in the string.
 // the above solution works but I had to alter the leadingSubstrings function
 // try again without altering the leadingSubstrings function
 // also to avoid nested arrays use concat() inplace of push().
-function substrings(string) {
-  let resultsArr = [];
-  for (let count = 0; count < string.length; count++) {
-    let substring = string.slice(count);
-    let substrings = leadingSubstrings(substring)
-    resultsArr = resultsArr.concat(substrings);
-  }
-  return resultsArr;
-}
+// function substrings(string) {
+//   let resultsArr = [];
+//   for (let count = 0; count < string.length; count++) {
+//     let substring = string.slice(count);
+//     let substrings = leadingSubstrings(substring)
+//     resultsArr = resultsArr.concat(substrings);
+//   }
+//   return resultsArr;
+// }
 
 function leadingSubstrings(str) {
     let substringArr = [];
@@ -68,6 +68,13 @@ function leadingSubstrings(str) {
         substringArr.push(str.slice(0, idx + 1));
     }
     return substringArr;
+}
+// further exploration
+// re-write substrings with list processing functions
+function substrings(string) {
+  return resultsArr = [...Array(string.length)].map((_, idx) => {
+    return leadingSubstrings(string.slice(idx));
+  }).flat();
 }
 console.log(substrings('abcde')) //
 // [ "a", "ab", "abc", "abcd", "abcde",

@@ -36,23 +36,23 @@ return the new array
 
 // Further Exploration
 // Rewrite leadingSubstrings using list processing functions(ie map, filter, or reduce )
-// function leadingSubstrings(str) {
-//     let substringArr = [];
-//     let charsArr = str.split('');
-//     return substringArr = charsArr.map((_, idx) => str.slice(0, idx + 1));
-// }
+function leadingSubstrings(str) {
+    let substringArr = [];
+    let charsArr = str.split('');
+    return substringArr = charsArr.map((_, idx) => str.slice(0, idx + 1));
+}
 // using reduce()
 
-function leadingSubstrings(string) {
-  let substringArr = [];
-  let charsArr = string.split('');
+// function leadingSubstrings(string) {
+//   let substringArr = [];
+//   let charsArr = string.split('');
   
-  charsArr.reduce((a, b) => {;
-    substringArr.push(a + b);
-    return a + b;
-  }, []);
-  return substringArr;    
-}
+//   charsArr.reduce((a, b) => {;
+//     substringArr.push(a + b);
+//     return a + b;
+//   }, []);
+//   return substringArr;    
+// }
 
 console.log(leadingSubstrings('abc'));      // ["a", "ab", "abc"]
 console.log(leadingSubstrings('a'));        // ["a"]
