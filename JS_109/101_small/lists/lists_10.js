@@ -11,8 +11,8 @@ A movement value of 'out' will decrease the item's quantity.
 
 # --------------------------PROBLEM--------------------------
 
-# Input: 
-# Output: 
+# Input: array and integer
+# Output: boolean
 # ---------------------------RULES---------------------------
 # Explicit: 
 You may (and should) use the transactionsFor function from the previous exercise.
@@ -57,8 +57,17 @@ function isItemAvailable(itemID, array) {
     });
     return total > 0 ? true : false;
 }
-// try agian with reduce()
-
+// LS solution with reduce() 
+// function isItemAvailable(itemID, array) {
+//   let available = transactionsFor(itemID, array).reduce((total, item) => {
+//     if (item['movement'] === 'in') {
+//       return total + item['quantity'];
+//   } else {
+//       return total - item['quantity']
+//   }
+//   }, 0);
+//   return available > 0;
+// }
 
 let transactions = [ { id: 101, movement: 'in',  quantity:  5 },
                      { id: 105, movement: 'in',  quantity: 10 },
