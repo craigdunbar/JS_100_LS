@@ -38,22 +38,33 @@ eg. 12:34 is 26 minutes til 13:00
 11*60 + 26 === 686
 */
 
-function afterMidnight(str) {
-  let timeArr = str.split(':');
-  let hours = Number(timeArr[0]);
-  let minutes = Number(timeArr[1]);
-  let minutesAterMidnight = (hours * 60) + minutes;
-  return minutesAterMidnight === 1440 ? 0 : minutesAterMidnight;
+// function afterMidnight(str) {
+//   let timeArr = str.split(':');
+//   let hours = Number(timeArr[0]);
+//   let minutes = Number(timeArr[1]);
+//   let minutesAterMidnight = (hours * 60) + minutes;
+//   return minutesAterMidnight === 1440 ? 0 : minutesAterMidnight;
+// }
+
+// function beforeMidnight(str) {
+//   let timeArr = str.split(':');
+//   let hours = Number(timeArr[0]);
+//   let minutes = Number(timeArr[1]);
+//   let minutesToNextHour = 60 - minutes;
+//   let hoursToMidnight = 24 - (hours + 1);
+//    let minutesBeforeMidnight = (hoursToMidnight * 60) + minutesToNextHour;
+//    return minutesBeforeMidnight === 1440 ? 0 : minutesBeforeMidnight
+// }
+// Further explotation
+const MINUTES_PER_DAY = 1440;
+
+function afterMidnight(string) {
+  let time = new Date(`June 19, 2022 ${string}:00`);
+  return (time.getHours() * 60) + time.getMinutes();
 }
 
-function beforeMidnight(str) {
-  let timeArr = str.split(':');
-  let hours = Number(timeArr[0]);
-  let minutes = Number(timeArr[1]);
-  let minutesToNextHour = 60 - minutes;
-  let hoursToMidnight = 24 - (hours + 1);
-   let minutesBeforeMidnight = (hoursToMidnight * 60) + minutesToNextHour;
-   return minutesBeforeMidnight === 1440 ? 0 : minutesBeforeMidnight
+function beforeMidnight(string) {
+  return (MINUTES_PER_DAY - afterMidnight(string)) % MINUTES_PER_DAY;
 }
 
 console.log(afterMidnight("00:00") === 0);

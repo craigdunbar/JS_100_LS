@@ -36,17 +36,44 @@ if the integer is positive find the result of integer % 1440
 divide this result by 60 to get the hour. Multiply any number after the dp 
 by 60 to get the minutes
 */
-function timeOfDay(num) {
-  const  MINS_PER_DAY = 1440;
-  const MINS_PER_HOUR = 60;
+// function timeOfDay(num) {
+//   const  MINS_PER_DAY = 1440;
+//   const MINS_PER_HOUR = 60;
 
-  given_minutes = (num % MINS_PER_DAY);
-  given_minutes = given_minutes < 0 ? (given_minutes += MINS_PER_DAY) : given_minutes;
+//   given_minutes = (num % MINS_PER_DAY);
+//   given_minutes = given_minutes < 0 ? (given_minutes += MINS_PER_DAY) : given_minutes;
 
-  hours = Math.floor(given_minutes / MINS_PER_HOUR);
-  mins = Math.floor(given_minutes % MINS_PER_HOUR);
+//   hours = Math.floor(given_minutes / MINS_PER_HOUR);
+//   mins = Math.floor(given_minutes % MINS_PER_HOUR);
 
-  return (`${hours.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}`)
+//   return (`${hours.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}`)
+// }
+
+// further exploration from LS student solutions
+
+// to use the date object we need to speciify the current date
+// then convert the given number into the day and time that corresponds to the 
+// current date plus or minus the given minutes.
+// then convert that date into the required hour and minute format also adding the day for clarity
+
+function formatDateOutput(date) {
+  let days = [
+    'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
+  ];
+
+  let day = String(days[date.getDay()]);
+  let hour = String(date.getHours());
+  let minute = String(date.getMinutes());
+
+  return `${day} ${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
+}
+
+function timeOfDay(number) {
+  const MILLISECONDS_PER_MINUTE = 60000;
+  const REFERENCE_TIME = (new Date ('June 19, 2022 00:00:00').getTime());
+
+  let date = new Date(REFERENCE_TIME + number * MILLISECONDS_PER_MINUTE);
+  return formatDateOutput(date);
 }
 console.log(timeOfDay(0)); // === "00:00");
 console.log(timeOfDay(-3)); // === "23:57");
