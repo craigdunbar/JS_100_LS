@@ -36,7 +36,8 @@ array;                                 // [1, 2, 3, 4]
 # ----------------------------ALGO---------------------------
 # given the array argument use slice to return a new array starting
 form element at index 1. than concat the first elemwnt of given array 
-to the new array 
+to the new array.
+use guard clause to check if arr isArray() or if arr is empty
 */
 function rotateArray(arr) {
   if (!Array.isArray(arr)) {
