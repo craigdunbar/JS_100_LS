@@ -1,4 +1,5 @@
 /*
+
 How to spot edge cases and ask the right questions
 
 Bad input: is there bad input that my function should guard against? For example, if the problem only talks about positive integers as input, should I guard against negative integers? What should my function return if a negative integer is passed in as an argument?
