@@ -46,7 +46,6 @@ function bubbleSort(arr) {
 }
 
 function bubbleSort(arr) {
-  // let swapped = false;
   while (true) {
     let swapped = false;
     for (let count = 1; count < arr.length; count++) {
