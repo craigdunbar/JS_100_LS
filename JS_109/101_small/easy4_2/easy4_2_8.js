@@ -39,7 +39,6 @@ function wordSizes(str) {
   arr.forEach(el => {
     let length = el.length
     if (!Object.keys(wordsObj).includes(String(length))) { // same as (!wordsObj[length])
-      // if (!wordsObj[length]) {
       wordsObj[length] = 1
     } else {
       wordsObj[length] = (wordsObj[length] + 1);
