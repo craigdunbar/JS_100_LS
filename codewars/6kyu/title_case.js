@@ -40,23 +40,30 @@ add the words to the new array
 return the array joined 
 */
 function titleCase(str1, str2) {
-  // let newArr = [];
+
+  if (arguments.length !== 2 || str2 === undefined) {
+   str2 = '';
+  } 
+
+  if (str1 === '') {
+    return '';
+  }
+
   let arr1 = str1.split(' ');
-  let arr2 = str2.split(' ');
- console.log(arr2)
+  let arr2 = str2.split(' ').map(word => word.toLowerCase());
+
   let newArr = arr1.map((word, idx) => {
-    if (idx !== 0 && arr2.includes(word)) {
-      return word.toLowerCase();
-    } else if (idx >=1 && arr2.includes(word)) {
+    if (idx === 0) {
+      return word[0].toUpperCase().concat(word.slice(1).toLowerCase())
+    } else if (arr2.includes(word.toLowerCase())) {
       return word.toLowerCase();
     } else {
      return word[0].toUpperCase().concat(word.slice(1).toLowerCase())
     }
-    // newArr = newArr.concat(word)
   })
   return newArr.join(' ');
 }
 console.log(titleCase('a clash of KINGS', 'a an the of')) // should return: 'A Clash of Kings'
 console.log(titleCase('THE WIND IN THE WILLOWS', 'The In')) // should return: 'The Wind in the Willows'
-// console.log(titleCase('the quick brown fox')) // should return: 'The Quick Brown Fox'
-// console.log(titleCase('')) // '')
+console.log(titleCase('the quick brown fox')) // should return: 'The Quick Brown Fox'
+console.log(titleCase('')) // '')
