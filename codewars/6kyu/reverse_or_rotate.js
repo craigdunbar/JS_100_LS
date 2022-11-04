@@ -63,13 +63,11 @@ initalise a loop
  - start at count = 1 and end at str.length / num
 split the string into chunks using slice
 start = 0;
-count = 1;
-- first substring => str.slice(start, num * count )
-start = num * count
-count = 2
-second sunstriong =>  str.slice(num, num * count )
-count = 2
-start = num * count
+end = num 
+- first substring => str.slice(start, end)
+start += num
+end = start + num
+second sunstriong =>  str.slice(num, end
 
 map the arrays with the result of **3 on each element
 use reduce to get a single int 
@@ -80,9 +78,7 @@ else
 - use shift and concat
 join the two array's and return it
 */
-
 function revrot(str, num) {
-
   if (num <= 0 || num > str.length) return '' 
 
   let chunkArr = [];
