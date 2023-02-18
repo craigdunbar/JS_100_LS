@@ -66,7 +66,6 @@ function smallerNumbersThanCurrent(arr) {
     let nonDupsArr = [... new Set(newArr)];
     let result = nonDupsArr.filter(num => num < currentNum).length;
     countArr = countArr.concat(result);
-    // console.log(countArr);
   }
   return countArr;
 }
